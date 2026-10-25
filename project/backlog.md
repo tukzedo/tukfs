@@ -89,6 +89,25 @@ Sorted per the notes in [Template](#template).
 		- It owns the checksum code: blake3, and blake2b for rmlint's attributes.
 		- tukfs-hash's tests still pass once it uses the library. Its database files open with no change.
 
+- CICD reset: a small cicd.bash per the shared CICD rules
+	- ID: 2026102416183351
+	- Type: Task
+	- Status: Queued
+	- Priority|Severity: High
+	- Opened: 20261024-161833
+	- Opened by: t00mietum
+	- Related IDs: 2026101915280874
+	- Requirements:
+		- Sweeping override, 2026-10-24: this supersedes any earlier decision on this project that conflicts with it.
+		- There's no code or pipeline yet. Add `cicd.bash` along with the first crate, so it follows the shared CICD rules from the start.
+		- Build and test in a pinned container, with a host fallback and `--no-container`.
+		- Half the CPUs at most, a quarter when busy, job counts worked out once, and everything at low priority.
+		- Each run in its own temp folder that a trap removes, with the guarded removal and no bare `rm -rf`.
+		- Containers labeled per project and run, and cleaned up at the end.
+		- The standard flags and run lengths, and `--merge-gate` from the pre-push hook on a push to main only.
+		- The standard step lines, and one line per test with its unique ID.
+		- A regression test for every Done item, and the build number and date in `--version`.
+
 - Metadata daemon MVP
 	- ID: 2026101915280880
 	- Type: Feature
